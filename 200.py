@@ -1,4 +1,4 @@
-import math, itertools
+import math, itertools, datetime
 '''
 We shall define a sqube to be a number of the form, p^2 q^3, where p and q are distinct primes.
 For example, 200 = 5^2 2^3 or 120072949 = 23^2 61^3.
@@ -17,33 +17,57 @@ def prime_sieve(n):
             sieve[i*i//2::i] = [False] * ((n-i*i-1)//(2*i)+1)
     return [2] + [2*i+1 for i in range(1, n//2) if sieve[i]]
 
-#def is_prime_proof()
+def is_prime_proof(n):
+    toCheck = []
+    toCheck.append(int(n[:-1]+'1'))
+    toCheck.append(int(n[:-1]+'3'))
+    toCheck.append(int(n[:-1]+'7'))
+    toCheck.append(int(n[:-1]+'9'))
+    isPrime = False
+    for num in toCheck:
+        if num < 3 or num % 2 == 0:
+            isPrime = (num == 2)
+        else:
+            isPrime = all(num % i != 0 for i in range(3, int(num**0.5 + 2), 2))
+        if isPrime: break
+    return not isPrime
 
 def p200():
     """ Problem 200 """
-    limit = 100_000
+    limit = 1000000
     primes = prime_sieve(limit)
-    i, i2, i3 = 1, 1, 1
+    i, i2, i3,i4, i5 = 1, 1, 1, 3, 3
+    print(primes[:5])
+    sqube = None
     sqube2 = primes[i2]**2 * 8
     sqube3 = primes[i3]**3 * 4
-    while i <= 10:
-        sqube = min(sqube2, sqube3)
-        if '200' in str(sqube):
-            print(i, sqube)
-            i += 1
-        if sqube2 < sqube3:
+    sqube4 = primes[i4]**2 * 125
+    sqube5 = primes[i5]**3 * 25
+    while i <= 200:
+        sqube = min(sqube2, sqube3, sqube4,sqube5)
+        ssqube = str(sqube)
+        if '200' in ssqube:
+            if (is_prime_proof(ssqube)):
+                i += 1
+        if sqube is sqube2:
             i2 += 1
             sqube2 = primes[i2]**2 * 8
-        else:
+        elif sqube is sqube3:
             i3 += 1
             sqube3 = primes[i3]**3 * 4
+        elif sqube is sqube4:
+            i4 += 1
+            sqube4 = primes[i4]**2 * 125
+        else:
+            i5+=1
+            sqube5 = primes[i5]**3 * 25
+    return sqube
 
-#p200()
-#lista = [x for x in range(0,50)]
-
-for item in itertools.permutations([1,2,3,4,5,6,7,8]):
-    print(item)
 
 
 
+tt1 =datetime.datetime.now()
+print(p200())
+
+print('Execute time:{} seconds'.format(datetime.datetime.now()-tt1))
 
