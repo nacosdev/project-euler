@@ -1,3 +1,4 @@
+from collections import defaultdict
 import math
 import functools
 import operator
@@ -31,63 +32,38 @@ What is the sum of all the minimal product-sum numbers for 2≤k≤12000?
 #suma = 0
 #prod = 1
 
-def is_prime(num):
-    if num < 3 or num % 2 == 0:
-        return (num == 2)
-    else:
-        return all(num % i != 0 for i in range(3, int(num**0.5 + 2), 2))
-
-
-#primero pruebo poniendo todos los dos, hasta que el producto sea mayor a la suma, para saber cuantas posiciones voy a usar como maximo
-def p88(k):
-    muls = []
-    equal = False
+def p88(maximo):
+    peor = 2*maximo
+    k_list = [2 * n for n in range(2, maximo + 1)]
+    prod, suma, digits = 1,1,1
     while True:
-        muls.append(2)
-        Nums = [1] * (k-len(muls)) + muls
-        suma = sum(Nums)
-        prod = 1
-        for num in muls:
-            prod *= num
-        if prod is suma:
-            return Nums
-        if prod * 2 > suma:
-            break
-    #muls.remove(2)
-    solutions = []
-    vueltas = 0
-    while vueltas < 20:
-        nums, suma, prod, equal = traer_resultados(k,muls)
-        if prod < suma:
-            muls 
-        vueltas += 1
+        k = prod - suma + digits
+        #if k < maximo:
+        #else:
+            #break
+
+#p88(12)
 
 
-def traer_resultados(k,muls):
-    """
-    muls son los multiplos que se estan probando
-    prueba combinaciones, y rellena los espacios restantes con unos para ver si es igual
-    """
-    Nums = [1] * (k-len(muls)) + muls
-    suma = sum(Nums)
-    prod = 1
-    for num in muls:
-        prod *= num
-    return Nums, suma, prod, prod is suma
 
-'''
-response = p88(100)
-print(response)
-#Nums = [1,1,2,2,2,2,1,1,1,1]
-Nums = response
+#Project Euler Problem 88
 
-suma = 0
-prod = 1
-for n in Nums:
-    suma += n
-    prod *= n
-#Nums, suma, prod, igual = traer_resultados(7,[4,3])
-print('Suma: {}, Producto: {}, Tamanho: {}, Es igual: '.format(suma,prod, len(Nums)))#, igual))
-'''
+def prodsum(p, s, c, start):
+    k = p - s + c     # product - sum + number of factors
+    print ('k: {} p: {} s:{} c:{}, start:{} \n'.format(k,p,s,c, start))
+    if k < kmax:
+        if p < n[k]:
+            n[k] = p
+            print('se guardo en k: {}, el numero: {} \n'.format(k,p))
+        for i in range(start, kmax//p*2 + 1):
+            print('el rango va hasta:{} \n'.format(kmax//p*2 + 1))
+            prodsum(p*i, s+i, c+1, i)
+    else:
+        print('corto, k:{} \n'.format(k))
 
-
+kmax = int(input('Enter a value for kmax?'))
+if kmax > 12: kmax += 1
+n = [2*kmax] * kmax
+prodsum(1, 1, 1, 2)
+print(n)
+print ("Project Euler 88 Solution =", sum(set(n[2:])))
