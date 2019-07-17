@@ -32,38 +32,3 @@ What is the sum of all the minimal product-sum numbers for 2≤k≤12000?
 #suma = 0
 #prod = 1
 
-def p88(maximo):
-    peor = 2*maximo
-    k_list = [2 * n for n in range(2, maximo + 1)]
-    prod, suma, digits = 1,1,1
-    while True:
-        k = prod - suma + digits
-        #if k < maximo:
-        #else:
-            #break
-
-#p88(12)
-
-
-
-#Project Euler Problem 88
-
-def prodsum(p, s, c, start):
-    k = p - s + c     # product - sum + number of factors
-    print ('k: {} p: {} s:{} c:{}, start:{} \n'.format(k,p,s,c, start))
-    if k < kmax:
-        if p < n[k]:
-            n[k] = p
-            print('se guardo en k: {}, el numero: {} \n'.format(k,p))
-        for i in range(start, kmax//p*2 + 1):
-            print('el rango va hasta:{} \n'.format(kmax//p*2 + 1))
-            prodsum(p*i, s+i, c+1, i)
-    else:
-        print('corto, k:{} \n'.format(k))
-
-kmax = int(input('Enter a value for kmax?'))
-if kmax > 12: kmax += 1
-n = [2*kmax] * kmax
-prodsum(1, 1, 1, 2)
-print(n)
-print ("Project Euler 88 Solution =", sum(set(n[2:])))
