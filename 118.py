@@ -15,7 +15,6 @@ def is_prime(num):
 big_list = []
 def find_set(setn,last,numbers,resto, setdistinct):
     for n in last:
-        #print('ene',n)
         permutate = resto.copy()
         permutate.remove(n)
         for d in range(0, len(resto)):
@@ -63,7 +62,6 @@ def p118():
         ultimos = [1,3,7,9]
         if n in ultimos:
             ultimos.remove(n)
-        print('resto', rest)
         find_set(newset,ultimos,[n],rest, [n])
     numbers = [2,4,5,6,8]
     last_numbers = [1,3,7,9]
@@ -75,7 +73,7 @@ def p118():
     total = 0 #start in 4 for 2,3,5,7
 
     for key in combinations:
-        for digits in range(1,8):
+        for digits in range(1,5):
             for ns in itertools.permutations(combinations[key],digits):
                 ns = list(ns) + [int(key)]
                 if sum(ns) % 3 is 0:
@@ -94,8 +92,6 @@ tt1 = datetime.datetime.now()
 
 
 p118()
-for item in big_list:
-    print(item)
 print('Cantidad: ', len(big_list))
 print('Tardo {} segundos.'.format((datetime.datetime.now() - tt1 ).seconds))
 
