@@ -65,3 +65,4 @@ for v in ks.values():
 print(sum(set_ps) - 2)
 tt2 = datetime.datetime.now()
 print('Preformance: ',(tt2-tt1) )
+
