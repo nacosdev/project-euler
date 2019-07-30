@@ -21,20 +21,25 @@ def is_prime(num):
     else:
         return all(num % i != 0 for i in range(3, int(num**0.5 + 2), 2))
 
-primes = prime_sieve(1000)
-#print(primes)
-def p60():
-    for i, p1 in enumerate(primes):
-        p1 = str(p1)
-        for i2, p2 in enumerate(primes[i+1:]):
-            p2 = str(p2)
-            for i3, p3 in enumerate(primes[i2+1:]):
-                p3 = str(p3)
-                if is_remarkable([p1,p2,p3]):
-                    print(p1,p2,p3)
+
+
+def p60(deph, ps, rmks):
+    for i, p in enumerate(ps):
+        str_p = str(p)
+        nw_rmks = rmks.copy()
+        nw_rmks.append(str_p)
+        if is_remarkable(nw_rmks):
+            if len(nw_rmks) == deph:
+                print('rmks', nw_rmks)
+                return sum([int(x) for x in nw_rmks])
+            else:
+                is_end = p60(deph, ps[i+1:], nw_rmks)
+                if is_end:
+                    return is_end
 
 def is_remarkable(ns):
     for com in itertools.permutations(ns,2):
+        if sum(int(n) for n in com) % 3 == 0: return False
         n = int(''.join([i for i in com]))
         if not is_prime(n):
             return False
@@ -43,8 +48,9 @@ def is_remarkable(ns):
 
 tt1 = datetime.datetime.now()
 
-print(is_remarkable(['3','7','109']))
-p60()
+primes = prime_sieve(10000)
+print(p60(5,primes,[]))
+
 tt2 = datetime.datetime.now()
 
-print('Least: ', tt2-tt1)
+print('Total time: ', tt2 - tt1)
