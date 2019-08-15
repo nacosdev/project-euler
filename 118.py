@@ -93,6 +93,6 @@ tt1 = datetime.datetime.now()
 
 p118()
 print('Cantidad: ', len(big_list))
-print('Tardo {} segundos.'.format((datetime.datetime.now() - tt1 ).seconds))
+print('Tardo {} segundos.'.format((datetime.datetime.now() - tt1 ).seconds)) #51 seconds
 
 
