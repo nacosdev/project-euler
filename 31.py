@@ -11,29 +11,34 @@ How many different ways can £2 be made using any number of coins?
 '''
 
 
-import itertools
+import datetime
 
-ways = []
+def combinations(coins, pos, tot):
+    #print(pos, tot)
+    if tot == 0:
+        return 1
+    if tot < 0:
+        return 0
+    if coins[pos] == 1: # avoid iteration to sum the rest of ones
+        return 1
+    if (len(coins) - pos <= 0 and tot >= 1):
+        return 0
+    return combinations(coins, pos + 1, tot) + combinations(coins, pos, tot - coins[pos])
 
-def combinations(coins, comb):
-    if sum(comb) == 200:
-        print(comb)
-    
+
+
+
 
 def p31():
     coins = [200, 100, 50, 20, 10, 5, 2, 1]
-    combinations(coins,[])
-p31()
-for item in ways:
-    print(item)
+    return combinations(coins, 0, 200)
 
 
-'''
 
-200
-100 100
-100 50 50
-100 50 25
-100 50 20 5
+tt1 = datetime.datetime.now()
 
-'''
+print('Answer: ', p31()) # 73682
+
+tt2 = datetime.datetime.now()
+
+print('Time: ', tt2 - tt1) # 0.05 seconds

@@ -31,6 +31,6 @@ def p41():# el máximo debe tener las cifras de 1 a 7, ya si le agrego 8 o 9, la
 
 
 tt1 = datetime.datetime.now()
-print('Max:', p41())
+print('Max:', p41()) # 3165427
 tt2 = datetime.datetime.now()
 print('Execute time:', tt2 - tt1) # 0.1 seconds
