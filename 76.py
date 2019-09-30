@@ -12,42 +12,25 @@ It is possible to write five as a sum in exactly six different ways:
 How many different ways can one hundred be written as a sum of at least two positive integers?
 
 '''
+from collections import defaultdict
 import datetime
 
-# Va de abajo hacia arriba
-# ejemplo hasta el 4:
-# 1 + 1 + 1 + 1
-# 2 + 1 + 1
-# 2 + 2
-# 3 + 1
-def p76(maxi, maxi_total, init = [0]):
-    for n in range(1, maxi + 1):
-        init[-1] = n
-        diff = maxi_total - sum(init)
-        if diff < 0:
-            break
-        if diff == 0:
-            #print(init)
-            global Counter
-            Counter += 1
-        else:
-            new_arr = init.copy()
-            new_arr.append(0)
-            p76(n, maxi_total,init= new_arr)
+def p76(hasta = 100):
+    dict_cache = defaultdict(int)
+    dict_cache[0] += 1
+    for x in range(1, hasta):
+        for y in range(x, hasta + 1):
+            dict_cache[y] += dict_cache[y - x]
+    return dict_cache[hasta]
+
 tt1 = datetime.datetime.now()
-number = int(input('Ingrese numero: '))
-#number = 8
-Counter = -1
-p76(number, number)#, init=[3, 3, 3])
-print(Counter)
+
+print('Answer: ', p76(100)) # 190569291
+
 tt2 = datetime.datetime.now()
-print('Execute time:', tt2-tt1)
 
+print('Time: ', tt2 - tt1) # 0.001 second
 
-
-
-
-#def optimized67(max):
 
 '''
 7
@@ -101,42 +84,4 @@ print('Execute time:', tt2-tt1)
 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1
 
 
-[11, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-[11, 2, 1, 1, 1, 1, 1, 1, 1]
-[11, 2, 2, 1, 1, 1, 1, 1]
-[11, 2, 2, 2, 1, 1, 1]
-[11, 2, 2, 2, 2, 1]
-[11, 3, 1, 1, 1, 1, 1, 1]
-[11, 3, 2, 1, 1, 1, 1]
-[11, 3, 2, 2, 1, 1]
-[11, 3, 2, 2, 2]
-[11, 3, 3, 1, 1, 1]
-[11, 3, 3, 2, 1]
-[11, 3, 3, 3]
-[11, 4, 1, 1, 1, 1, 1]
-[11, 4, 2, 1, 1, 1]
-[11, 4, 2, 2, 1]
-[11, 4, 3, 1, 1]
-[11, 4, 3, 2]
-[11, 4, 4, 1]
-[11, 5, 1, 1, 1, 1]
-[11, 5, 2, 1, 1]
-[11, 5, 2, 2]
-[11, 5, 3, 1]
-[11, 5, 4]
-[11, 6, 1, 1, 1]
-[11, 6, 2, 1]
-[11, 6, 3]
-[11, 7, 1, 1]
-[11, 7, 2]
-[11, 8, 1]
-[11, 9]
-
-
-
-
-
-[50]
-204225
-Execute time: 0:00:13.167738
 '''

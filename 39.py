@@ -27,7 +27,7 @@ def p39(maximo = 1000):
                 results[int(p)] += 1
             else:
                 break
-    return max(results, key=results.get) # Devuelve la key con el value maximo
+    return max(results, key=results.get) # Devuelve la key con el value maximo-
 
 tt1 = datetime.datetime.now()
 

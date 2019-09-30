@@ -24,5 +24,5 @@ count = 0
 for item in itertools.product('OAl', repeat=4):
     count += 1
     #print(''.join(item))
- 
+
 print(count)
